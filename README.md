@@ -1,1 +1,1 @@
-# rails-example
+# Rails Example
