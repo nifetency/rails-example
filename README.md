@@ -203,43 +203,29 @@ You can deploy the application using the nifectl CLI.
 
 ---
 
-### Install nifectl CLI (Windows)
+#### Step 1: Download nifectl
 
-#### 1. Download
-
-https://github.com/nifetency/nifectl/releases/tag/v4.1.3-dev
-
-Download:
-
-```id="zv6k1a"
-nifectl-windows-amd64.zip
-```
+https://docs.nife.io/Quick-Start/Nifectl
 
 ---
 
-#### 2. Extract
-
-* Right-click the ZIP file
-* Select Extract All
-* Open the extracted folder
-
----
-
-#### 3. Open Terminal
+#### Step 2: Open Terminal
 
 * Type `cmd` in the address bar
   or
-* Right-click and select Open in Terminal
+* Right-click and select **Open in Terminal**
 
 ---
 
-#### 4. Verify Installation
+#### Step 3: Verify Installation
 
-```bash id="g2x5hd"
+```bash
 nifectl --help
 ```
 
 ---
+
+### Deployment Steps
 
 ### Step 1: Login
 
