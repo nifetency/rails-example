@@ -1,336 +1,204 @@
 # Rails Example
 
-##  Overview
+A simple **Ruby on Rails** application published as a **sample deployment project for [Nife.io](https://nife.io)**.
 
-This is a Ruby on Rails application demonstrating a basic web app structure.
-It includes backend logic, database integration, and a standard Rails project setup.
+This repository demonstrates how to run a lightweight Rails application locally, package it with Docker, and deploy it on [Nife.io](https://nife.io). It is intended as a practical sample for validating Rails deployment workflows, container-based delivery, and basic platform configuration.[1] [2] [3]
 
-This project can be used for learning Rails fundamentals, deployment, and development workflows.
+## Recommended README
 
----
+```md
+# Rails Example
 
-##  Features
+A simple **Ruby on Rails** application published as a **sample deployment project for [Nife.io](https://nife.io)**.
 
-* Built with Ruby on Rails
-* MVC architecture
-* Database integration (via ActiveRecord)
-* Docker support (Dockerfile included)
-* Ready for deployment using nifectl
+This repository demonstrates how to run a lightweight Rails application locally, package it with Docker, and deploy it on [Nife.io](https://nife.io). It is intended as a practical sample for testing Rails deployment workflows and showcasing a straightforward Ruby on Rails deployment path.
 
----
+## Overview
 
-##  Requirements
+This project is a basic Rails application with a standard project structure, backend logic, and database integration through Active Record. It is designed to be small enough for learning and deployment experiments while still reflecting the conventions of a real Rails application.[3]
 
-Make sure you have the following installed:
+If you want a simple backend-oriented sample to test deployment on [Nife.io](https://nife.io), this repository is a good starting point.
 
-* Ruby (check `.ruby-version`)
-* Rails
-* Bundler
-* SQLite / PostgreSQL (depending on config)
-* Git
+## Features
 
----
+| Feature | Description |
+| --- | --- |
+| Ruby on Rails app | Built with the standard Rails application structure |
+| MVC architecture | Uses the conventional Rails model-view-controller pattern |
+| Database integration | Supports database-backed application workflows through Active Record |
+| Docker support | Includes a `Dockerfile` for containerized execution |
+| Deployment-ready setup | Can be deployed using Git-based or Docker-based workflows |
+| Nife.io sample use case | Suitable as a reference project for [Nife.io](https://nife.io) deployments |
 
-##  Installation
+## Tech Stack
 
-### 1. Clone the repository
+| Technology | Purpose |
+| --- | --- |
+| Ruby | Runtime environment |
+| Ruby on Rails | Web framework |
+| Bundler | Dependency management |
+| SQLite or PostgreSQL | Database layer, depending on configuration |
+| Docker | Container packaging |
+| Nife.io | Deployment platform |
+
+## Prerequisites
+
+Before running the project locally, make sure the following are installed.
+
+| Requirement | Notes |
+| --- | --- |
+| Ruby | Use the version specified in `.ruby-version` |
+| Bundler | Required to install Ruby gems |
+| Rails | Required for Rails commands |
+| Database | SQLite or PostgreSQL depending on your environment |
+| Git | Required to clone the repository |
+
+## Getting Started
+
+### Clone the repository
 
 ```bash
 git clone https://github.com/nifetency/rails-example.git
-
 cd rails-example
 ```
 
----
-
-### 2. Install dependencies
+### Install dependencies
 
 ```bash
 bundle install
 ```
 
----
-
-### 3. Setup the database
+### Set up the database
 
 ```bash
 rails db:create
 rails db:migrate
 ```
 
----
-
-### 4. Run the application locally
+### Start the application
 
 ```bash
 rails server
 ```
 
- Open in browser:
-http://localhost:3000
+Then open the application at `http://localhost:3000`.
 
----
+## Run with Docker
 
-##  Run with Docker (Optional)
+This project includes a Dockerfile for container-based execution.
+
+### Build the image
 
 ```bash
-docker build -t rails-app .
-docker run -p 3000:3000 rails-app
+docker build -t rails-example .
 ```
 
----
-## Deployment on NIFE
+### Run the container
 
-Deploy your application using the NIFE platform:
-
-https://launch.nife.io/
-
-Deployment flow:
-
-```id="lq3k8p"
-Source → Build → Resources → Review → Deploy
+```bash
+docker run -p 3000:3000 rails-example
 ```
 
-Prerequisite: Ensure a workload (Deployment, CronJob, or StatefulSet) exists.
+After the container starts, open the app at `http://localhost:3000`.
 
----
+## Deploy on Nife.io
 
-## Method 1: Deploy via Docker Image (Recommended)
+You can deploy this application on [Nife.io](https://nife.io) using either a Docker image, the source repository, or the CLI.[1] [2]
 
-### Step 1: Build and Push Image
+### Option 1: Deploy from a Docker image
 
-```bash id="2m8c9a"
+First, build and push the image to your preferred container registry.
+
+```bash
 docker build -t rails-example .
 docker tag rails-example <username>/rails-example:latest
 docker push <username>/rails-example:latest
 ```
 
----
+Then configure a new application in Nife.io with the following settings.
 
-### Step 2: Configure Source
+| Setting | Value |
+| --- | --- |
+| Source | Docker Image |
+| Registry | Docker Hub or another supported registry |
+| Image | `<username>/rails-example:latest` |
+| Internal Port | `3000` |
+| External Port | `80` |
+| Suggested Replicas | `1` |
 
-* Source: Docker Image
-* Registry: Docker Hub
-* Image: `<username>/rails-example:latest`
-* Tag: `latest`
+### Option 2: Deploy from the Git repository
 
----
+You can also deploy the project directly from GitHub.
 
-### Step 3: Build Configuration
+| Setting | Value |
+| --- | --- |
+| Source | Git Repository |
+| Provider | GitHub |
+| Branch | `main` |
+| Internal Port | `3000` |
+| External Port | `80` |
+| Build Mode | Auto-Dockerize with runtime |
 
-* Internal Port: `3000`
-* External Port: `80`
+### Option 3: Deploy with `nifectl`
 
-Environment variables (optional):
-
-| Key          | Value             |
-| ------------ | ----------------- |
-| RAILS_ENV    | production        |
-| DATABASE_URL | your-database-url |
-
----
-
-### Step 4: Resources Configuration
-
-* Region: e.g., `ap-south-1`
-* Resource Type: CPU
-
-Recommended settings:
-
-* CPU Request: `250m`
-* Memory Request: `512MB`
-* CPU Limit: `500m`
-* Memory Limit: `1GB`
-
----
-
-### Step 5: Deploy
-
-* Strategy: Rolling
-* Workload: Deployment
-* Routing Policy: Latency
-* Replicas: 1–2
-
-Click Deploy.
-
----
-
-## Method 2: Deploy via Git Repository
-
-### Step 1: Select Source
-
-* Source: Git Repository
-* Provider: GitHub
-* Branch: `main`
-
----
-
-### Step 2: Build Configuration
-
-* Internal Port: `3000`
-* External Port: `80`
-
-Enable:
-
-```id="o2f7zm"
-Auto-Dockerize with Runtime
-```
-
----
-
-### Step 3: Build and Security
-
-NIFE automatically performs:
-
-* SAST
-* SCA
-* Container scan
-* IaC scan
-
-Resolve any critical issues before proceeding.
-
----
-
-### Step 4: Resources and Deploy
-
-Use the recommended configuration above and deploy.
-
----
-
-## Deployment using nifectl (CLI)
-
-You can deploy the application using the nifectl CLI.
-
----
-
-#### Step 1: Download nifectl
-
-https://docs.nife.io/Quick-Start/Nifectl
-
----
-
-#### Step 2: Open Terminal
-
-* Type `cmd` in the address bar
-  or
-* Right-click and select **Open in Terminal**
-
----
-
-#### Step 3: Verify Installation
+If you prefer the command line, use the following workflow.
 
 ```bash
-nifectl --help
-```
-
----
-
-### Deployment Steps
-
-### Step 1: Login
-
-```bash id="8m2f5n"
 nifectl auth login
-```
-
----
-
-### Step 2: Initialize Project
-
-```bash id="1v7p9q"
 nifectl init
-```
-
-Provide:
-
-* Application name
-* Organization
-* Repository URL
-* Branch (`main`)
-
----
-
-### Step 3: Configure Deployment
-
-* Deployment Type: Deployment
-* Resource Type: CPU
-* Replicas: 1
-
-Ports:
-
-* Internal: `3000`
-* External: `80`
-
----
-
-### Step 4: Deploy
-
-```bash id="q3n8ru"
 nifectl deploy
 ```
 
----
-
-### Step 5: Select Region
-
-Example:
-
-```id="k4d7pl"
-IND - Mumbai
-```
-
----
-
-### Step 6: Monitor Deployment
-
-Monitor logs for:
-
-* Validation
-* Build
-* Deployment
-
----
-
-### Step 7: Access Application
-
-```id="p9x2mj"
-https://<your-nife-url>
-```
-
----
-
-## Dependencies
-
-| Dependency          | Purpose             |
-| ------------------- | ------------------- |
-| Ruby                | Runtime environment |
-| Rails               | Web framework       |
-| Bundler             | Dependency manager  |
-| SQLite / PostgreSQL | Database            |
-
----
+For step-by-step instructions, see the [Nife.io Quick Deploy documentation](https://docs.nife.io/overview/quick-deploy) and the [nifectl quick start guide](https://docs.nife.io/Quick-Start/Nifectl).
 
 ## Environment Variables
 
-| Variable     | Description                | Example                      |
-| ------------ | -------------------------- | ---------------------------- |
-| RAILS_ENV    | Application environment    | production                   |
-| DATABASE_URL | Database connection string | postgres://user:pass@host/db |
+The following variables are commonly relevant for deployment.
 
----
+| Variable | Description | Example |
+| --- | --- | --- |
+| `RAILS_ENV` | Rails execution environment | `production` |
+| `DATABASE_URL` | Database connection string | `postgres://user:pass@host/db` |
+| `PORT` | Application port, if overridden by environment | `3000` |
+
+## Repository Structure
+
+| Path | Purpose |
+| --- | --- |
+| `app/` | Main Rails application code |
+| `config/` | Framework and environment configuration |
+| `db/` | Database schema and migrations |
+| `lib/` | Library and support code |
+| `public/` | Static public assets |
+| `test/` | Test files |
+| `Dockerfile` | Container build instructions |
+| `Gemfile` | Ruby gem dependencies |
+| `config.ru` | Rack configuration entry point |
 
 ## Troubleshooting
 
-| Issue                     | Solution                             |
-| ------------------------- | ------------------------------------ |
-| Port already in use       | Change port or stop running process  |
-| Rails not installed       | Install using `gem install rails`    |
-| Bundle install fails      | Run `bundle install` again           |
-| Database not created      | Run `rails db:create db:migrate`     |
-| App not starting          | Check logs and dependencies          |
-| Docker build fails        | Verify Dockerfile and Ruby version   |
-| Deployment fails on NIFE  | Check logs, ports, and env variables |
-| App not accessible        | Verify port mapping and routing      |
-| Database connection error | Check DATABASE_URL and DB service    |
+| Issue | Suggested fix |
+| --- | --- |
+| Bundler install fails | Verify your Ruby version and rerun `bundle install` |
+| Database is not created | Run `rails db:create db:migrate` |
+| Port `3000` is already in use | Stop the conflicting process or remap the port |
+| Docker build fails | Recheck the Dockerfile and local Ruby environment |
+| Deployment fails on Nife.io | Verify ports, environment variables, and build settings |
+| Application is unreachable | Check routing, service exposure, and deployment logs |
 
----
+## Acknowledgements
+
+This repository is maintained by **Nifetency** as a sample deployment project for [Nife.io](https://nife.io).
+
+If this repository is derived from an earlier template or upstream example, it is good practice to retain visible credit to the original author or source repository.
+
+## License
+
+This project is licensed under the **MIT License**.
+
+## References
+
+[1]: https://nife.io "Nife.io"
+[2]: https://docs.nife.io/overview/quick-deploy "Nife.io Quick Deploy"
+[3]: https://github.com/nifetency/rails-example "nifetency/rails-example"
+[4]: https://docs.nife.io/Quick-Start/Nifectl "Nifectl Quick Start"
