@@ -196,9 +196,11 @@ If this repository is derived from an earlier template or upstream example, it i
 
 This project is licensed under the **MIT License**.
 
+---
+
 ## References
 
-[1]: https://nife.io "Nife.io"
-[2]: https://docs.nife.io/overview/quick-deploy "Nife.io Quick Deploy"
-[3]: https://github.com/nifetency/rails-example "nifetency/rails-example"
-[4]: https://docs.nife.io/Quick-Start/Nifectl "Nifectl Quick Start"
+1. (https://nife.io)
+2. (https://docs.nife.io/overview/)
+3. (https://github.com/nifetency/rails-example)
+4. (https://docs.nife.io/Quick-Start)
