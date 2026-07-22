@@ -2,7 +2,7 @@
 
 <h3 align="center"><b><u>Deploy this project Instantly</u></b></h3>
 
-<a href="https://launch.nife.io/deploy-app/start?repository-url=https://github.com/nifetency/rails-example">
+<a href="https://launch.nife.io/deploy-app/start?repository-url=https://github.com/nife-public/rails-example">
   <img
     src="https://launch.nife.io/deploy-on-nife.svg"
     alt="Deploy on NIFE"
@@ -72,7 +72,7 @@ Before running the project locally, make sure the following are installed.
 ### Clone the repository
 
 ```bash
-git clone https://github.com/nifetency/rails-example.git
+git clone https://github.com/nife-public/rails-example.git
 cd rails-example
 ```
 
@@ -217,5 +217,5 @@ This project is licensed under the **MIT License**.
 
 1. (https://nife.io)
 2. (https://docs.nife.io/overview/)
-3. (https://github.com/nifetency/rails-example)
+3. (https://github.com/nife-public/rails-example)
 4. (https://docs.nife.io/Quick-Start)
